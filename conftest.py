@@ -1,5 +1,6 @@
 import pytest
 import os
+import pyautogui
 from datetime import datetime
 from desktop_test.utils.config import *
 from desktop_test.utils.custom_logger import CustomLogger
@@ -29,7 +30,6 @@ def pytest_runtest_makereport(item, call):
             # 在报告中添加失败截图
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             screenshot_path = os.path.join(SCREENSHOTS_DIR, f"failure_{timestamp}.png")
-            import pyautogui
             pyautogui.screenshot(screenshot_path)
             
             # 将截图添加到HTML报告

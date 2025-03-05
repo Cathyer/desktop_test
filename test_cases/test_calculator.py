@@ -1,6 +1,4 @@
 import time
-import subprocess
-import signal
 import os
 from desktop_test.test_cases.base_test import BaseTest
 from desktop_test.utils.test_helper import TestHelper
@@ -13,16 +11,23 @@ class TestCalculator(BaseTest):
         """每个测试方法开始前启动计算器"""
         super().setup_method(method)
         try:
-            # 启动计算器应用
-            self.calculator_process = subprocess.Popen(
-                ['deepin-calculator'],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE
-            )
+            # 通过双击图标启动计算器
+            self._logger.log_step("查找计算器图标")
+            if not TestHelper.wait_for_element(
+                os.path.join(TEST_DATA_DIR, 'calculator_icon.png'),
+                timeout=5
+            ):
+                raise Exception("未找到计算器图标")
             
-            # 等待应用启动
-            self._wait_for_calculator_start()
-            self._logger.log_step("计算器应用启动成功")
+            # 双击图标
+            self._logger.log_step("双击启动计算器")
+            TestHelper.double_click_element(os.path.join(TEST_DATA_DIR, 'calculator_icon.png'))
+            
+            # 等待计算器窗口出现
+            if self._wait_for_calculator_start():
+                self._logger.log_step("计算器应用启动成功")
+            else:
+                raise Exception("计算器启动超时")
             
         except Exception as e:
             self._logger.log_test_error(
@@ -35,14 +40,29 @@ class TestCalculator(BaseTest):
     def teardown_method(self, method):
         """每个测试方法结束后关闭计算器"""
         try:
-            # 关闭计算器
-            if hasattr(self, 'calculator_process'):
-                self.calculator_process.send_signal(signal.SIGTERM)
-                try:
-                    self.calculator_process.wait(timeout=5)
-                except subprocess.TimeoutExpired:
-                    self.calculator_process.kill()
-                self._logger.log_step("计算器应用关闭成功")
+            # 查找并点击关闭按钮
+            self._logger.log_step("查找关闭按钮")
+            if TestHelper.wait_for_element(
+                os.path.join(TEST_DATA_DIR, 'close_button.png'),
+                timeout=5
+            ):
+                self._logger.log_step("点击关闭按钮")
+                TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'close_button.png'))
+                
+                # 等待窗口关闭
+                start_time = time.time()
+                while time.time() - start_time < 5:  # 5秒超时
+                    if not TestHelper.element_exists(
+                        os.path.join(TEST_DATA_DIR, 'calculator_title.png')
+                    ):
+                        self._logger.log_step("计算器应用关闭成功")
+                        break
+                    time.sleep(0.5)
+                else:
+                    raise Exception("计算器关闭超时")
+            else:
+                raise Exception("未找到关闭按钮")
+                
         except Exception as e:
             self._logger.log_test_error(
                 f"{self.__class__.__name__}.teardown_method",
@@ -56,20 +76,13 @@ class TestCalculator(BaseTest):
         """等待计算器应用启动"""
         start_time = time.time()
         while time.time() - start_time < timeout:
-            try:
-                # 检查进程是否在运行
-                if self.calculator_process.poll() is None:
-                    # 等待窗口出现
-                    if TestHelper.wait_for_element(
-                        os.path.join(TEST_DATA_DIR, 'calculator_title.png'),
-                        timeout=1
-                    ):
-                        return True
-            except Exception:
-                pass
+            if TestHelper.wait_for_element(
+                os.path.join(TEST_DATA_DIR, 'calculator_title.png'),
+                timeout=1
+            ):
+                return True
             time.sleep(0.5)
-        
-        raise TimeoutError("计算器应用启动超时")
+        return False
         
     def test_basic_calculation(self):
         """测试基本的加法运算"""

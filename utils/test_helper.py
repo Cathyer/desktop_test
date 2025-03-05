@@ -120,4 +120,38 @@ class TestHelper:
         :param confidence: 匹配置信度
         :return: 是否找到元素
         """
-        return TestHelper.find_element_on_screen(image_path, confidence, timeout) is not None 
+        return TestHelper.find_element_on_screen(image_path, confidence, timeout) is not None
+
+    @staticmethod
+    def double_click_element(image_path, confidence=0.9, timeout=DEFAULT_TIMEOUT):
+        """
+        双击屏幕上的元素
+        :param image_path: 要双击的元素图片路径
+        :param confidence: 匹配置信度
+        :param timeout: 超时时间（秒）
+        :return: 是否双击成功
+        """
+        try:
+            location = TestHelper.find_element_on_screen(image_path, confidence, timeout)
+            if location:
+                pyautogui.doubleClick(location)
+                TestHelper._logger.log_step(f"双击元素: {image_path}", "成功")
+                return True
+            return False
+        except Exception as e:
+            TestHelper._logger.log_test_error("双击元素", str(e), "双击失败")
+            raise
+
+    @staticmethod
+    def element_exists(image_path, confidence=0.9):
+        """
+        检查元素是否存在（不等待）
+        :param image_path: 要查找的元素图片路径
+        :param confidence: 匹配置信度
+        :return: 元素是否存在
+        """
+        try:
+            location = pyautogui.locateCenterOnScreen(image_path, confidence=confidence)
+            return location is not None
+        except pyautogui.ImageNotFoundException:
+            return False 
