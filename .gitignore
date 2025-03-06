@@ -20,10 +20,10 @@ wheels/
 .installed.cfg
 *.egg
 
-# 虚拟环境
+# Virtual Environment
 venv/
-env/
 ENV/
+env/
 
 # IDE
 .idea/
@@ -31,12 +31,15 @@ ENV/
 *.swp
 *.swo
 
-# 测试相关
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
 logs/
 reports/
 screenshots/
-test_data/*.png
-
-# 系统文件
-.DS_Store
-Thumbs.db 
+test_data/
+*.log
+*.html
+*.pdf 
