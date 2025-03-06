@@ -1,9 +1,9 @@
 import os
 import time
-from desktop_test.test_cases.base_test import BaseTest
-from desktop_test.test_cases.test_fixtures import TestFixtures
-from desktop_test.utils.test_helper import TestHelper
-from desktop_test.utils.config import *
+from test_cases.base_test import BaseTest
+from test_cases.test_fixtures import TestFixtures
+from utils.test_helper import TestHelper
+from utils.config import *
 
 class TestScanOperations(BaseTest):
     """扫描页面操作测试用例"""

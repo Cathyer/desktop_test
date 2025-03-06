@@ -1,4 +1,5 @@
 import os
+from utils.config import *
 
 def create_directories():
     """创建项目所需的目录结构"""
