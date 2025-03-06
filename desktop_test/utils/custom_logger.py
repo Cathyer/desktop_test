@@ -113,4 +113,4 @@ class CustomLogger:
         if actual is None:
             logger.info(f"断言: {assertion_type} - 期望值: {expected}")
         else:
-            logger.info(f"断言: {assertion_type} - 期望值: {expected}, 实际值: {actual}") 
+            logger.info(f"断言: {assertion_type} - 期望值: {expected}, 实际值: {actual}")
