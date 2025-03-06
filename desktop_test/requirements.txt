@@ -2,8 +2,8 @@ pytest==7.4.4
 pyautogui==0.9.54
 PyQt5==5.15.10
 PySide2==5.15.2.1
-Pillow==10.2.0
+Pillow==11.1.0
 pytest-html==4.1.1
-opencv-python==4.9.0.80
+opencv-python==4.11.0.86
 numpy==1.26.3
 loguru==0.7.2 
