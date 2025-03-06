@@ -3,7 +3,7 @@ import pytest
 from utils.test_helper import TestHelper
 from utils.custom_logger import CustomLogger
 from utils.config import *
-from test_utils.assertions import TestAssertions
+from utils.test_assertions import TestAssertions
 
 class BaseTest(TestAssertions):
     _logger = CustomLogger()

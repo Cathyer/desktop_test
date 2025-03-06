@@ -1,197 +1,84 @@
-# 采编王自动化测试框架
+# 桌面应用自动化测试框架
 
-基于 Python 的采编王桌面应用自动化测试框架，使用 PyAutoGUI 实现界面自动化操作。
+这是一个基于Python的桌面应用自动化测试框架，专门设计用于统信系统下的应用测试。
 
-## 项目结构
+## 特性
+
+- 基于图像识别的UI元素定位
+- 支持图像对比断言
+- 详细的HTML测试报告
+- 完整的日志记录
+- 测试失败自动截图
+- 模块化的测试用例组织
+
+## 目录结构
 
 ```
 desktop_test/
-├── core/                    # 核心功能模块
-│   ├── base/               # 基础类
-│   │   ├── __init__.py
-│   │   └── base_test.py    # 测试基类
-│   ├── config/             # 配置相关
-│   │   ├── __init__.py
-│   │   └── settings.py     # 配置管理
-│   └── logging/            # 日志相关
-│       ├── __init__.py
-│       └── logger.py       # 日志管理
-│
-├── test_cases/             # 测试用例
-│   ├── __init__.py
-│   ├── batch/              # 批量操作测试
-│   │   ├── __init__.py
-│   │   └── test_batch_operations.py
-│   ├── document/           # 文档处理测试
-│   │   ├── __init__.py
-│   │   └── test_document_operations.py
-│   ├── file_list/          # 文件列表测试
-│   │   ├── __init__.py
-│   │   └── test_file_list_operations.py
-│   ├── scan/               # 扫描操作测试
-│   │   ├── __init__.py
-│   │   └── test_scan_operations.py
-│   └── toolbar/            # 工具栏测试
-│       ├── __init__.py
-│       └── test_toolbar_operations.py
-│
-├── test_utils/             # 测试工具
-│   ├── __init__.py
-│   ├── assertions/         # 断言相关
-│   │   ├── __init__.py
-│   │   ├── element.py     # 元素断言
-│   │   ├── image.py       # 图像断言
-│   │   └── file.py        # 文件断言
-│   ├── fixtures/          # 夹具相关
-│   │   ├── __init__.py
-│   │   ├── app.py        # 应用夹具
-│   │   ├── document.py   # 文档夹具
-│   │   └── scan.py       # 扫描夹具
-│   └── helpers/          # 辅助工具
-│       ├── __init__.py
-│       ├── ui.py         # UI操作
-│   │   └── image.py      # 图像处理
-│   │   └── file.py       # 文件处理
-│   └── helpers/          # 辅助工具
-│       ├── __init__.py
-│       ├── ui.py         # UI操作
-│       └── image.py      # 图像处理
-│
-├── test_data/            # 测试数据目录
-│   ├── batch/           # 批量操作测试图片
-│   ├── common/          # 通用测试图片
-│   ├── document/        # 文档处理测试图片
-│   ├── file_list/       # 文件列表测试图片
-│   ├── scan/           # 扫描操作测试图片
-│   └── toolbar/        # 工具栏操作测试图片
-├── screenshots/         # 测试截图目录
-├── logs/               # 日志文件目录
-└── reports/            # 测试报告目录
+├── test_cases/        # 测试用例目录
+├── test_data/         # 测试数据（如参考图片）
+├── logs/              # 日志文件目录
+├── reports/           # 测试报告目录
+├── screenshots/       # 截图目录
+├── utils/             # 工具类目录
+└── requirements.txt   # 项目依赖
 ```
 
-## 主要功能
+## 安装
 
-1. 批量操作测试
-   - 批量色彩模式转换
-   - 批量裁剪
-   - 批量规格化
-
-2. 文档处理测试
-   - OCR 文字识别
-   - PDF 转换
-   - OFD 文件处理
-
-3. 文件列表操作测试
-   - 文件导入
-   - 文件插入
-   - 文件重排序
-
-4. 扫描操作测试
-   - 色彩模式设置
-   - 扫描类型设置
-   - 扫描功能
-
-5. 工具栏操作测试
-   - 裁剪工具
-   - 框选工具
-   - 缩放工具
-
-## 环境要求
-
-- Python 3.8+
-- 操作系统：统信 UOS
-- 显示器分辨率：1920x1080 或更高
-- 采编王应用版本：1.0.0 或更高
-
-## 依赖包
-
-- PyAutoGUI：用于模拟鼠标和键盘操作
-- OpenCV：用于图像处理和匹配
-- pytest：测试框架
-- loguru：日志记录
-- python-magic：文件类型检测
-- pytest-xdist：并行测试执行
-- pytest-timeout：测试超时控制
-- pytest-rerunfailures：失败重试机制
-
-## 安装步骤
-
-1. 克隆项目到本地：
-```bash
-git clone https://github.com/your-username/desktop_test.git
-cd desktop_test
-```
-
-2. 创建并激活虚拟环境：
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# 或
-venv\Scripts\activate  # Windows
-```
-
-3. 安装依赖：
+1. 克隆项目到本地
+2. 安装依赖：
 ```bash
 pip install -r requirements.txt
 ```
 
-4. 配置环境变量：
+## 使用方法
+
+1. 准备测试数据：
+   - 将需要的参考图片放在 `test_data` 目录下
+
+2. 编写测试用例：
+   - 继承 `BaseTest` 类
+   - 使用提供的断言方法：
+     - `assert_element_exists`: 断言元素存在
+     - `assert_images_match`: 断言图片匹配
+
+3. 运行测试：
 ```bash
-cp .env.example .env
-# 根据需要修改 .env 文件中的配置
+pytest -v --html=reports/report.html
 ```
 
-## 运行测试
+## 配置
 
-```bash
-# 运行所有测试
-pytest
+可以在 `utils/config.py` 中修改以下配置：
 
-# 运行特定测试类
-pytest test_cases/test_batch_operations.py
-
-# 运行特定测试方法
-pytest test_cases/test_batch_operations.py::TestBatchOperations::test_batch_color_mode
-```
-
-## 日志和报告
-
-- 测试日志保存在 `logs` 目录
-- 测试截图保存在 `screenshots` 目录
-- 测试报告保存在 `reports` 目录
+- 图像相似度阈值
+- 超时时间
+- 截图延迟
+- 日志格式
+- 报告标题
 
 ## 注意事项
 
-1. 运行测试前确保采编王应用已安装
-2. 测试过程中请勿手动操作鼠标和键盘
-3. 确保测试图片资源完整且正确
-4. 建议在测试环境中运行，避免影响生产环境
+1. 确保测试环境中的显示设置（如分辨率、缩放）与参考图片一致
+2. 测试用例执行前请确保目标应用处于正确的初始状态
+3. 建议使用较高分辨率的参考图片以提高识别准确率
 
-## 开发指南
+## 常见问题
 
-1. 新增测试用例
-   - 在 `test_cases` 目录下创建新的测试类
-   - 继承 `BaseTest` 类
-   - 实现 `setup_method` 和 `teardown_method`
+1. 元素识别失败
+   - 检查参考图片是否清晰
+   - 调整相似度阈值
+   - 确保屏幕显示正常
 
-2. 添加测试数据
-   - 在 `test_data` 目录下创建相应的子目录
-   - 准备测试所需的图片资源
-   - 确保图片命名规范且具有描述性
+2. 测试报告无截图
+   - 检查截图目录权限
+   - 确保 PyAutoGUI 有截图权限
 
-3. 使用测试工具类
-   - `TestHelper`: 提供基础的 UI 操作
-   - `TestAssertions`: 提供断言方法
-   - `TestFixtures`: 提供测试夹具
+## 贡献
 
-## 贡献指南
+欢迎提交 Issue 和 Pull Request 来帮助改进这个框架。
 
-1. Fork 项目
-2. 创建特性分支
-3. 提交更改
-4. 推送到分支
-5. 创建 Pull Request
-
-## 许可证
+## 许可
 
 MIT License 
