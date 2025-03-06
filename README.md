@@ -6,20 +6,57 @@
 
 ```
 desktop_test/
-├── test_cases/              # 测试用例目录
-│   ├── base_test.py        # 测试基类
-│   ├── test_batch_operations.py    # 批量操作测试
-│   ├── test_document_operations.py # 文档处理测试
-│   ├── test_file_list_operations.py # 文件列表操作测试
-│   ├── test_scan_operations.py     # 扫描操作测试
-│   └── test_toolbar_operations.py  # 工具栏操作测试
-├── test_utils/             # 测试工具类目录
-│   ├── assertions.py      # 测试断言类
-│   └── fixtures.py        # 测试夹具类
-├── utils/                 # 通用工具类目录
-│   ├── config.py         # 配置文件
-│   ├── custom_logger.py  # 日志工具
-│   └── test_helper.py    # 测试辅助类
+├── core/                    # 核心功能模块
+│   ├── base/               # 基础类
+│   │   ├── __init__.py
+│   │   └── base_test.py    # 测试基类
+│   ├── config/             # 配置相关
+│   │   ├── __init__.py
+│   │   └── settings.py     # 配置管理
+│   └── logging/            # 日志相关
+│       ├── __init__.py
+│       └── logger.py       # 日志管理
+│
+├── test_cases/             # 测试用例
+│   ├── __init__.py
+│   ├── batch/              # 批量操作测试
+│   │   ├── __init__.py
+│   │   └── test_batch_operations.py
+│   ├── document/           # 文档处理测试
+│   │   ├── __init__.py
+│   │   └── test_document_operations.py
+│   ├── file_list/          # 文件列表测试
+│   │   ├── __init__.py
+│   │   └── test_file_list_operations.py
+│   ├── scan/               # 扫描操作测试
+│   │   ├── __init__.py
+│   │   └── test_scan_operations.py
+│   └── toolbar/            # 工具栏测试
+│       ├── __init__.py
+│       └── test_toolbar_operations.py
+│
+├── test_utils/             # 测试工具
+│   ├── __init__.py
+│   ├── assertions/         # 断言相关
+│   │   ├── __init__.py
+│   │   ├── element.py     # 元素断言
+│   │   ├── image.py       # 图像断言
+│   │   └── file.py        # 文件断言
+│   ├── fixtures/          # 夹具相关
+│   │   ├── __init__.py
+│   │   ├── app.py        # 应用夹具
+│   │   ├── document.py   # 文档夹具
+│   │   └── scan.py       # 扫描夹具
+│   └── helpers/          # 辅助工具
+│       ├── __init__.py
+│       ├── ui.py         # UI操作
+│   │   └── image.py      # 图像处理
+│   │   └── file.py       # 文件处理
+│   └── helpers/          # 辅助工具
+│       ├── __init__.py
+│       ├── ui.py         # UI操作
+│       └── image.py      # 图像处理
+│
 ├── test_data/            # 测试数据目录
 │   ├── batch/           # 批量操作测试图片
 │   ├── common/          # 通用测试图片
