@@ -1,6 +1,6 @@
 import os
 from test_cases.base_test import BaseTest
-from test_cases.test_fixtures import TestFixtures
+from utils.test_fixtures import TestFixtures
 from utils.test_helper import TestHelper
 from utils.config import *
 

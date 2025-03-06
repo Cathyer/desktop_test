@@ -2,9 +2,11 @@ import os
 import time
 from utils.test_helper import TestHelper
 from utils.config import *
+from utils.custom_logger import CustomLogger
 
 class TestFixtures:
     """测试夹具类，提供通用的前置和后置操作"""
+    _logger = CustomLogger()
     
     @classmethod
     def setup_application(cls):
