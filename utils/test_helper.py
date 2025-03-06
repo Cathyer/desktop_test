@@ -6,6 +6,8 @@ import pyautogui
 from datetime import datetime
 from .config import *
 from .custom_logger import CustomLogger
+from PIL import Image
+from loguru import logger
 
 class TestHelper:
     _logger = CustomLogger()
@@ -14,7 +16,12 @@ class TestHelper:
     def setup_logging():
         """配置日志系统"""
         # 日志系统现在由CustomLogger管理
-        pass
+        logger.add(
+            os.path.join(LOGS_DIR, "test_{time}.log"),
+            rotation="500 MB",
+            retention="10 days",
+            level="INFO"
+        )
 
     @staticmethod
     def take_screenshot(name):
@@ -154,4 +161,161 @@ class TestHelper:
             location = pyautogui.locateCenterOnScreen(image_path, confidence=confidence)
             return location is not None
         except pyautogui.ImageNotFoundException:
-            return False 
+            return False
+
+    @staticmethod
+    def click_and_drag(image_path, start_x, start_y, end_x, end_y, duration=0.5):
+        """点击并拖动
+        
+        Args:
+            image_path: 元素图片路径
+            start_x: 起始X坐标
+            start_y: 起始Y坐标
+            end_x: 结束X坐标
+            end_y: 结束Y坐标
+            duration: 拖动持续时间
+        """
+        try:
+            location = pyautogui.locateOnScreen(image_path, confidence=0.8)
+            if location:
+                # 计算相对于图片的坐标
+                rel_start_x = location.left + start_x
+                rel_start_y = location.top + start_y
+                rel_end_x = location.left + end_x
+                rel_end_y = location.top + end_y
+                
+                # 执行拖动
+                pyautogui.moveTo(rel_start_x, rel_start_y)
+                pyautogui.mouseDown()
+                pyautogui.moveTo(rel_end_x, rel_end_y, duration=duration)
+                pyautogui.mouseUp()
+                logger.info(f"拖动元素: {image_path}")
+            else:
+                raise Exception(f"未找到元素: {image_path}")
+        except Exception as e:
+            logger.error(f"拖动元素失败: {str(e)}")
+            raise
+
+    @staticmethod
+    def scroll_element(image_path, scroll_amount, direction='down', duration=0.5):
+        """滚动元素
+        
+        Args:
+            image_path: 元素图片路径
+            scroll_amount: 滚动距离
+            direction: 滚动方向（'up' 或 'down'）
+            duration: 滚动持续时间
+        """
+        try:
+            location = pyautogui.locateOnScreen(image_path, confidence=0.8)
+            if location:
+                # 计算滚动方向
+                if direction.lower() == 'up':
+                    scroll_amount = -scroll_amount
+                
+                # 移动到元素中心
+                center = pyautogui.center(location)
+                pyautogui.moveTo(center)
+                
+                # 执行滚动
+                pyautogui.scroll(scroll_amount)
+                logger.info(f"滚动元素: {image_path}, 方向: {direction}, 距离: {scroll_amount}")
+            else:
+                raise Exception(f"未找到元素: {image_path}")
+        except Exception as e:
+            logger.error(f"滚动元素失败: {str(e)}")
+            raise
+
+    @staticmethod
+    def drag_and_drop(source_image_path, target_image_path, duration=0.5):
+        """拖放操作
+        
+        Args:
+            source_image_path: 源元素图片路径
+            target_image_path: 目标元素图片路径
+            duration: 拖动持续时间
+        """
+        try:
+            # 查找源元素
+            source_location = pyautogui.locateOnScreen(source_image_path, confidence=0.8)
+            if not source_location:
+                raise Exception(f"未找到源元素: {source_image_path}")
+            
+            # 查找目标元素
+            target_location = pyautogui.locateOnScreen(target_image_path, confidence=0.8)
+            if not target_location:
+                raise Exception(f"未找到目标元素: {target_image_path}")
+            
+            # 执行拖放
+            source_center = pyautogui.center(source_location)
+            target_center = pyautogui.center(target_location)
+            
+            pyautogui.moveTo(source_center)
+            pyautogui.mouseDown()
+            pyautogui.moveTo(target_center, duration=duration)
+            pyautogui.mouseUp()
+            
+            logger.info(f"拖放操作: 从 {source_image_path} 到 {target_image_path}")
+        except Exception as e:
+            logger.error(f"拖放操作失败: {str(e)}")
+            raise
+
+    @staticmethod
+    def match_image(image_path, threshold=0.8):
+        """匹配图片
+        
+        Args:
+            image_path: 图片路径
+            threshold: 匹配阈值
+            
+        Returns:
+            bool: 是否匹配
+        """
+        try:
+            location = pyautogui.locateOnScreen(image_path, confidence=threshold)
+            return location is not None
+        except Exception as e:
+            logger.error(f"图片匹配失败: {str(e)}")
+            return False
+
+    @staticmethod
+    def write_text(text):
+        """输入文本
+        
+        Args:
+            text: 要输入的文本
+        """
+        try:
+            pyautogui.write(text)
+            logger.info(f"输入文本: {text}")
+        except Exception as e:
+            logger.error(f"输入文本失败: {str(e)}")
+            raise
+
+    @staticmethod
+    def key_press(key):
+        """按下按键
+        
+        Args:
+            key: 按键名称
+        """
+        try:
+            pyautogui.keyDown(key)
+            logger.info(f"按下按键: {key}")
+        except Exception as e:
+            logger.error(f"按下按键失败: {str(e)}")
+            raise
+
+    @staticmethod
+    def key_release(key):
+        """释放按键
+        
+        Args:
+            key: 按键名称
+        """
+        try:
+            pyautogui.keyUp(key)
+            logger.info(f"释放按键: {key}")
+        except Exception as e:
+            logger.error(f"释放按键失败: {str(e)}")
+            raise 
