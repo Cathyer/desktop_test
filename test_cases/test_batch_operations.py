@@ -1,8 +1,8 @@
 import os
-from test_cases.base_test import BaseTest
-from utils.test_fixtures import TestFixtures
-from utils.test_helper import TestHelper
-from utils.config import *
+from .base_test import BaseTest
+from ..utils.test_fixtures import TestFixtures
+from ..utils.test_helper import TestHelper
+from ..utils.config import *
 
 class TestBatchOperations(BaseTest):
     """批量操作测试用例"""
