@@ -2,8 +2,8 @@ import pytest
 import os
 import pyautogui
 from datetime import datetime
-from desktop_test.utils.config import *
-from desktop_test.utils.custom_logger import CustomLogger
+from utils.config import *
+from utils.custom_logger import CustomLogger
 
 logger = CustomLogger()
 

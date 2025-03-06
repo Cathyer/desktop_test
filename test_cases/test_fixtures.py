@@ -1,7 +1,7 @@
 import os
 import time
-from desktop_test.utils.test_helper import TestHelper
-from desktop_test.utils.config import *
+from utils.test_helper import TestHelper
+from utils.config import *
 
 class TestFixtures:
     """测试夹具类，提供通用的前置和后置操作"""

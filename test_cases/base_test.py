@@ -1,9 +1,10 @@
 import os
+import pytest
 import hashlib
 import magic  # 用于文件类型检测
-from desktop_test.utils.test_helper import TestHelper
-from desktop_test.utils.custom_logger import CustomLogger
-from desktop_test.utils.config import *
+from utils.test_helper import TestHelper
+from utils.custom_logger import CustomLogger
+from utils.config import *
 
 class BaseTest:
     _logger = CustomLogger()
