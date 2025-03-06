@@ -1,8 +1,8 @@
 import os
-from test_cases.base_test import BaseTest
-from utils.test_fixtures import TestFixtures
-from utils.test_helper import TestHelper
-from utils.config import *
+from desktop_test.test_cases.base_test import BaseTest
+from desktop_test.test_cases.test_fixtures import TestFixtures
+from desktop_test.utils.test_helper import TestHelper
+from desktop_test.utils.config import *
 
 class TestFileListOperations(BaseTest):
     """文件列表操作测试用例"""

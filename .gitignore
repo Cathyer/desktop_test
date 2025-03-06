@@ -30,16 +30,17 @@ env/
 .vscode/
 *.swp
 *.swo
+.project
+.pydevproject
+.settings/
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+reports/
+*.log
 
 # OS
 .DS_Store
-Thumbs.db
-
-# Project specific
-logs/
-reports/
-screenshots/
-test_data/
-*.log
-*.html
-*.pdf 
+Thumbs.db 
