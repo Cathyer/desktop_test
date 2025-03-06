@@ -1,10 +1,10 @@
-opencv-python==4.8.1.78
-pytest==7.4.3
+opencv-python==4.9.0.80
+pytest==7.4.4
 pytest-html==4.1.1
 pyautogui==0.9.54
 loguru==0.7.2
-pillow==10.1.0
-numpy==1.26.2
+pillow==10.2.0
+numpy==1.26.3
 python-xlib==0.33; sys_platform == 'linux'
 pywin32==306; sys_platform == 'win32'
 python-magic==0.4.27
