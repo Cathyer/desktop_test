@@ -1,7 +1,7 @@
 import os
 import time
 from test_cases.base_test import BaseTest
-from utils.test_fixtures import TestFixtures
+from test_utils.fixtures import TestFixtures
 from utils.test_helper import TestHelper
 from utils.config import *
 
