@@ -60,31 +60,34 @@ class TestFixtures:
             raise
 
     @classmethod
-    def import_test_files(cls, file_paths):
-        """导入测试文件的通用操作
-        
+    def import_test_files(cls, file_paths, text):
+        """导入测试文件夹的通用操作
+
         Args:
             file_paths: 要导入的测试文件路径列表
+            text: 要输入的文本
         """
         try:
             # 点击导入按钮
             cls._logger.log_step("点击导入按钮")
             TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'common/import_button.png'))
-            
-            # 选择多个文件
-            cls._logger.log_step("选择测试文件")
-            TestHelper.click_element(file_paths[0])  # 点击第一个文件
-            
-            if len(file_paths) > 1:  # 如果有多个文件需要选择
-                TestHelper.key_press('ctrl')  # 按住Ctrl键进行多选
-                for file_path in file_paths[1:]:
-                    TestHelper.click_element(file_path)
-                TestHelper.key_release('ctrl')
-            
-            # 确认导入
-            cls._logger.log_step("确认导入")
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'common/open_button.png'))
-            
+
+            # 点击导入文件夹按钮
+            cls._logger.log_step("点击导入文件夹按钮")
+            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'common/import_file_button.png'))
+
+            # 点击目录输入框
+            cls._logger.log_step("点击目录输入框")
+            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'common/file_input.png'))
+            # 点击写入内容
+            TestHelper.write_text(text)
+
+            # 确认选择导入
+            cls._logger.log_step("确认选择导入")
+            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'common/select_button.png'))
+
+            time.sleep(2)
+
         except Exception as e:
             cls._logger.log_test_error(
                 "TestFixtures.import_test_files",
