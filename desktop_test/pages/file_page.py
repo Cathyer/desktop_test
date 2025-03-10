@@ -1,8 +1,11 @@
 import os
-from .base_page import BasePage
-from utils.image_paths import ImagePaths
-from utils.exceptions import FileOperationError, ElementNotFoundError, ElementNotVisibleError
-from utils.test_data import TestData
+from desktop_test.pages.base_page import BasePage
+from desktop_test.utils.test_helper import TestHelper
+from desktop_test.utils.config import TEST_DATA_DIR
+from desktop_test.utils.custom_logger import CustomLogger
+from desktop_test.utils.image_paths import ImagePaths
+from desktop_test.utils.exceptions import FileOperationError, ElementNotFoundError, ElementNotVisibleError
+from desktop_test.utils.test_data import TestData
 
 class FilePage(BasePage):
     """文件操作页面类"""
