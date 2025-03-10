@@ -114,3 +114,12 @@ class CustomLogger:
             logger.info(f"断言: {assertion_type} - 期望值: {expected}")
         else:
             logger.info(f"断言: {assertion_type} - 期望值: {expected}, 实际值: {actual}")
+
+def setup_logger(log_file):
+    """设置日志配置
+    
+    Args:
+        log_file: 日志文件路径
+    """
+    logger = CustomLogger()
+    return logger

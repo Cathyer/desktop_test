@@ -1,6 +1,6 @@
 import pytest
-from pages.file_page import FilePage
-from utils.exceptions import FileOperationError
+from desktop_test.pages.file_page import FilePage
+from desktop_test.utils.exceptions import FileOperationError
 
 class TestFileOperations:
     """文件操作测试类"""

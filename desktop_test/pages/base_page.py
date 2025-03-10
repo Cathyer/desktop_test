@@ -1,6 +1,6 @@
 from loguru import logger
-from utils.test_helper import TestHelper
-from utils.config import IMAGE_SIMILARITY_THRESHOLD, DEFAULT_TIMEOUT
+from desktop_test.utils.test_helper import TestHelper
+from desktop_test.utils.config import IMAGE_SIMILARITY_THRESHOLD, DEFAULT_TIMEOUT
 
 class BasePage:
     """基础页面类，提供通用的页面操作方法"""

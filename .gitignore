@@ -20,27 +20,26 @@ wheels/
 .installed.cfg
 *.egg
 
-# Virtual Environment
-venv/
-ENV/
-env/
-
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
-.project
-.pydevproject
-.settings/
-
-# Test
-.pytest_cache/
-.coverage
-htmlcov/
-reports/
-*.log
 
 # OS
 .DS_Store
-Thumbs.db 
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+desktop_test/screenshots/*
+desktop_test/logs/*
+desktop_test/reports/*
+!desktop_test/screenshots/.gitkeep
+!desktop_test/logs/.gitkeep
+!desktop_test/reports/.gitkeep
+.pytest_cache/ 

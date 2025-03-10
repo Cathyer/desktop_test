@@ -1,6 +1,6 @@
 import os
-from .base_page import BasePage
-from utils.image_paths import ImagePaths
+from desktop_test.pages.base_page import BasePage
+from desktop_test.utils.image_paths import ImagePaths
 
 class MainPage(BasePage):
     """主页面类"""

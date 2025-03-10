@@ -2,9 +2,13 @@ import os
 import time
 from desktop_test.utils.test_helper import TestHelper
 from desktop_test.utils.config import *
+from desktop_test.utils.custom_logger import CustomLogger
 
 class TestFixtures:
     """测试夹具类，提供通用的前置和后置操作"""
+    
+    _logger = CustomLogger()
+    _test_helper = TestHelper()
     
     @classmethod
     def setup_application(cls):
@@ -12,19 +16,14 @@ class TestFixtures:
         try:
             # 通过双击图标启动采编王
             cls._logger.log_step("查找采编王图标")
-            if not TestHelper.wait_for_element(
-                os.path.join(TEST_DATA_DIR, 'common/caibian_icon.png'),
-                timeout=5
-            ):
-                raise Exception("未找到采编王图标")
-            
-            # 双击图标
-            cls._logger.log_step("双击启动采编王")
-            TestHelper.double_click_element(os.path.join(TEST_DATA_DIR, 'common/caibian_icon.png'))
+            if not cls._test_helper.double_click_element(os.path.join(TEST_DATA_DIR, "common/caibian_icon.png")):
+                cls._logger.log_test_error("TestFixtures.setup_application", "采编王启动失败", "未找到应用图标")
+                raise Exception("应用程序启动失败")
             
             # 等待采编王窗口出现
             if cls._wait_for_window_appear():
                 cls._logger.log_step("采编王应用启动成功")
+                return True
             else:
                 raise Exception("采编王启动超时")
                 
@@ -34,7 +33,7 @@ class TestFixtures:
                 str(e),
                 "采编王启动失败"
             )
-            raise
+            return False
 
     @classmethod
     def teardown_application(cls):
@@ -42,7 +41,9 @@ class TestFixtures:
         try:
             # 点击关闭按钮
             cls._logger.log_step("关闭采编王应用")
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'common/close_button.png'))
+            if not cls._test_helper.click_element(os.path.join(TEST_DATA_DIR, "common/close_button.png")):
+                cls._logger.log_test_error("TestFixtures.teardown_application", "采编王关闭失败", "未找到关闭按钮")
+                raise Exception("应用程序关闭失败")
             
             # 确认关闭
             if TestHelper.wait_for_element(os.path.join(TEST_DATA_DIR, 'common/confirm_close.png')):
@@ -51,13 +52,14 @@ class TestFixtures:
             # 等待窗口关闭
             time.sleep(2)
             
+            return True
         except Exception as e:
             cls._logger.log_test_error(
                 "TestFixtures.teardown_application",
                 str(e),
                 "采编王关闭失败"
             )
-            raise
+            return False
 
     @classmethod
     def import_test_files(cls, file_paths, text):
@@ -88,46 +90,51 @@ class TestFixtures:
 
             time.sleep(2)
 
+            return True
         except Exception as e:
             cls._logger.log_test_error(
                 "TestFixtures.import_test_files",
                 str(e),
                 "测试文件导入失败"
             )
-            raise
+            return False
 
     @classmethod
     def setup_batch_operation(cls):
         """批量操作的通用前置设置"""
         try:
-            cls.setup_application()
+            if not cls.setup_application():
+                raise Exception("应用程序启动失败")
             cls.import_test_files([
                 os.path.join(TEST_DATA_DIR, 'batch/test_image1.png'),
                 os.path.join(TEST_DATA_DIR, 'batch/test_image2.png'),
                 os.path.join(TEST_DATA_DIR, 'batch/test_image3.png')
             ])
+            return True
         except Exception as e:
             cls._logger.log_test_error(
                 "TestFixtures.setup_batch_operation",
                 str(e),
                 "批量操作前置设置失败"
             )
-            raise
+            return False
 
     @classmethod
     def setup_document_operation(cls):
         """文档处理的通用前置设置"""
         try:
-            cls.setup_application()
+            if not cls.setup_application():
+                raise Exception("应用程序启动失败")
             # 根据测试类型导入不同的测试文件
             cls.import_test_files([os.path.join(TEST_DATA_DIR, 'document/test_doc.pdf')])
+            return True
         except Exception as e:
             cls._logger.log_test_error(
                 "TestFixtures.setup_document_operation",
                 str(e),
                 "文档处理前置设置失败"
             )
-            raise
+            return False
 
     @classmethod
     def setup_toolbar_operation(cls):

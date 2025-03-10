@@ -7,22 +7,22 @@ from datetime import datetime
 from desktop_test.utils.config import *
 from desktop_test.utils.custom_logger import CustomLogger
 import logging
-from utils.config import (
+from desktop_test.utils.config import (
     TEST_DATA_DIR,
     SCREENSHOTS_DIR,
     LOGS_DIR,
     REPORTS_DIR
 )
-from utils.logger import setup_logger
+from desktop_test.utils.custom_logger import setup_logger
 
-logger = CustomLogger()
+custom_logger = CustomLogger()
 
 def pytest_configure(config):
     """配置pytest"""
     # 添加HTML报告
     config.option.htmlpath = os.path.join(REPORTS_DIR, REPORT_NAME)
     config.option.self_contained_html = True
-    logger.log_step("pytest配置完成")
+    custom_logger.log_step("pytest配置完成")
 
     # 创建必要的目录
     for directory in [TEST_DATA_DIR, SCREENSHOTS_DIR, LOGS_DIR, REPORTS_DIR]:
@@ -36,7 +36,7 @@ def pytest_configure(config):
 def pytest_html_report_title(report):
     """设置HTML报告标题"""
     report.title = REPORT_TITLE
-    logger.log_step("HTML报告标题设置完成")
+    custom_logger.log_step("HTML报告标题设置完成")
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
@@ -63,13 +63,13 @@ def pytest_runtest_makereport(item, call):
             report.extra = extra
             
             # 记录失败信息
-            logger.log_test_error(
+            custom_logger.log_test_error(
                 f"{item.name}",
                 str(report.longrepr),
                 "测试失败"
             )
         except Exception as e:
-            logger.log_test_error(
+            custom_logger.log_test_error(
                 "pytest报告生成",
                 str(e),
                 "报告生成失败"
@@ -96,7 +96,7 @@ def reports_dir():
     return REPORTS_DIR
 
 @pytest.fixture(scope="function")
-def logger():
+def test_logger():
     """测试用例日志记录器"""
     return logging.getLogger("test")
 
@@ -174,7 +174,7 @@ def performance_timer():
     yield
     end_time = time.time()
     duration = end_time - start_time
-    logger.info(f"测试执行时间: {duration:.2f}秒")
+    custom_logger.info(f"测试执行时间: {duration:.2f}秒")
 
 @pytest.fixture(scope="function")
 def test_config():
@@ -209,7 +209,7 @@ def compare_images():
             similarity = np.mean(cv2.matchTemplate(img1, img2, cv2.TM_CCOEFF_NORMED))
             return similarity >= threshold
         except Exception as e:
-            logger.error(f"图片比较失败: {str(e)}")
+            custom_logger.error(f"图片比较失败: {str(e)}")
             return False
     return _compare_images
 

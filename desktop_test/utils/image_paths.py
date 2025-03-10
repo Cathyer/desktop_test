@@ -1,5 +1,5 @@
 import os
-from utils.config import TEST_DATA_DIR
+from desktop_test.utils.config import TEST_DATA_DIR
 
 class ImagePaths:
     """图片路径管理类"""

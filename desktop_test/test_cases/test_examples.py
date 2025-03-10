@@ -1,9 +1,11 @@
 import pytest
 import os
-from pages.main_page import MainPage
-from pages.file_page import FilePage
-from pages.ocr_page import OCRPage
-from pages.scan_page import ScanPage
+import time
+from desktop_test.pages.main_page import MainPage
+from desktop_test.pages.file_page import FilePage
+from desktop_test.pages.ocr_page import OCRPage
+from desktop_test.pages.scan_page import ScanPage
+from desktop_test.utils.test_helper import TestHelper
 
 class TestExamples:
     """示例测试类"""

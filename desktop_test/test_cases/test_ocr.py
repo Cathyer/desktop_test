@@ -1,10 +1,12 @@
 import pytest
 import os
-from pages.main_page import MainPage
-from pages.ocr_page import OCRPage
-from test_cases.base_test import BaseTest
-from utils.config import TEST_DATA_DIR
-from utils.file_validator import FileValidator
+import time
+from desktop_test.pages.main_page import MainPage
+from desktop_test.pages.ocr_page import OCRPage
+from desktop_test.test_cases.base_test import BaseTest
+from desktop_test.utils.config import TEST_DATA_DIR
+from desktop_test.utils.file_validator import FileValidator
+from desktop_test.utils.test_helper import TestHelper
 
 class TestOCR(BaseTest):
     """OCR功能测试用例"""

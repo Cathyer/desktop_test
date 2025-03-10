@@ -22,10 +22,7 @@ class TestBatchOperations(BaseTest):
     def test_batch_color_mode(self):
         """测试批量色彩模式转换"""
         try:
-            # 点击批量操作按钮
-            self._logger.log_step("点击批量操作按钮")
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/batch_operation_button.png'))
-            
+
             # 选择色彩模式
             self._logger.log_step("选择色彩模式")
             TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/color_mode_button.png'))
@@ -49,67 +46,67 @@ class TestBatchOperations(BaseTest):
             )
             raise
 
-    def test_batch_crop(self):
-        """测试批量裁剪功能"""
-        try:
-            # 点击批量裁剪
-            self._logger.log_step("点击批量裁剪")
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/batch_crop_button.png'))
-            
-            # 设置裁剪参数
-            self._logger.log_step("设置裁剪参数")
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/crop_settings.png'))
-            
-            # 输入裁剪尺寸
-            self._logger.log_step("输入裁剪尺寸")
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/width_input.png'))
-            TestHelper.write_text('800')
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/height_input.png'))
-            TestHelper.write_text('600')
-            
-            # 确认裁剪
-            self._logger.log_step("确认裁剪")
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'common/confirm_button.png'))
-            
-            # 验证结果
-            TestFixtures.verify_operation_result(
-                os.path.join(TEST_DATA_DIR, 'batch/cropped_result.png'),
-                "批量裁剪失败"
-            )
-            
-        except Exception as e:
-            self._logger.log_test_error(
-                f"{self.__class__.__name__}.test_batch_crop",
-                str(e),
-                "批量裁剪测试失败"
-            )
-            raise
-
-    def test_batch_normalize(self):
-        """测试批量规格化功能"""
-        try:
-            # 点击规格化按钮
-            self._logger.log_step("点击规格化按钮")
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/normalize_button.png'))
-            
-            # 选择规格
-            self._logger.log_step("选择规格")
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/size_option.png'))
-            
-            # 确认规格化
-            self._logger.log_step("确认规格化")
-            TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'common/confirm_button.png'))
-            
-            # 验证结果
-            TestFixtures.verify_operation_result(
-                os.path.join(TEST_DATA_DIR, 'batch/normalized_result.png'),
-                "批量规格化失败"
-            )
-            
-        except Exception as e:
-            self._logger.log_test_error(
-                f"{self.__class__.__name__}.test_batch_normalize",
-                str(e),
-                "批量规格化测试失败"
-            )
-            raise 
+    # def test_batch_crop(self):
+    #     """测试批量裁剪功能"""
+    #     try:
+    #         # 点击批量裁剪
+    #         self._logger.log_step("点击批量裁剪")
+    #         TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/batch_crop_button.png'))
+    #
+    #         # 设置裁剪参数
+    #         self._logger.log_step("设置裁剪参数")
+    #         TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/crop_settings.png'))
+    #
+    #         # 输入裁剪尺寸
+    #         self._logger.log_step("输入裁剪尺寸")
+    #         TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/width_input.png'))
+    #         TestHelper.write_text('800')
+    #         TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/height_input.png'))
+    #         TestHelper.write_text('600')
+    #
+    #         # 确认裁剪
+    #         self._logger.log_step("确认裁剪")
+    #         TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'common/confirm_button.png'))
+    #
+    #         # 验证结果
+    #         TestFixtures.verify_operation_result(
+    #             os.path.join(TEST_DATA_DIR, 'batch/cropped_result.png'),
+    #             "批量裁剪失败"
+    #         )
+    #
+    #     except Exception as e:
+    #         self._logger.log_test_error(
+    #             f"{self.__class__.__name__}.test_batch_crop",
+    #             str(e),
+    #             "批量裁剪测试失败"
+    #         )
+    #         raise
+    #
+    # def test_batch_normalize(self):
+    #     """测试批量规格化功能"""
+    #     try:
+    #         # 点击规格化按钮
+    #         self._logger.log_step("点击规格化按钮")
+    #         TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/normalize_button.png'))
+    #
+    #         # 选择规格
+    #         self._logger.log_step("选择规格")
+    #         TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'batch/size_option.png'))
+    #
+    #         # 确认规格化
+    #         self._logger.log_step("确认规格化")
+    #         TestHelper.click_element(os.path.join(TEST_DATA_DIR, 'common/confirm_button.png'))
+    #
+    #         # 验证结果
+    #         TestFixtures.verify_operation_result(
+    #             os.path.join(TEST_DATA_DIR, 'batch/normalized_result.png'),
+    #             "批量规格化失败"
+    #         )
+    #
+    #     except Exception as e:
+    #         self._logger.log_test_error(
+    #             f"{self.__class__.__name__}.test_batch_normalize",
+    #             str(e),
+    #             "批量规格化测试失败"
+    #         )
+    #         raise

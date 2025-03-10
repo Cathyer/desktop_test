@@ -1,6 +1,6 @@
 import os
 import json
-from utils.config import TEST_DATA_DIR
+from desktop_test.utils.config import TEST_DATA_DIR
 
 class TestData:
     """测试数据管理类"""
