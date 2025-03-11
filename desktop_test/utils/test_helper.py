@@ -101,7 +101,7 @@ class TestHelper:
             except Exception as e:
                 TestHelper._logger.log_test_error("查找元素", str(e), f"查找失败: {image_path}")
                 return None
-            time.sleep(0.2)  # 减少等待时间
+            time.sleep(0.2)
             
         TestHelper._logger.log_element_not_found(image_path, timeout)
         return None
