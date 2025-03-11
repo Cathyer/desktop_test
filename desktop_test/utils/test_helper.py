@@ -76,7 +76,7 @@ class TestHelper:
             raise
 
     @staticmethod
-    def find_element_on_screen(image_path, confidence=0.9, timeout=DEFAULT_TIMEOUT):
+    def find_element_on_screen(image_path, confidence=0.8, timeout=DEFAULT_TIMEOUT):
         """
         在屏幕上查找元素
         :param image_path: 要查找的图片路径
@@ -84,6 +84,11 @@ class TestHelper:
         :param timeout: 超时时间（秒）
         :return: 元素位置 (x, y) 或 None
         """
+        # 检查图片文件是否存在
+        if not os.path.exists(image_path):
+            TestHelper._logger.log_test_error("查找元素", f"图片文件不存在: {image_path}", "文件不存在")
+            return None
+            
         start_time = time.time()
         while time.time() - start_time < timeout:
             try:
@@ -93,13 +98,16 @@ class TestHelper:
                     return location
             except pyautogui.ImageNotFoundException:
                 pass
-            time.sleep(0.5)
+            except Exception as e:
+                TestHelper._logger.log_test_error("查找元素", str(e), f"查找失败: {image_path}")
+                return None
+            time.sleep(0.2)  # 减少等待时间
             
         TestHelper._logger.log_element_not_found(image_path, timeout)
         return None
 
     @staticmethod
-    def click_element(image_path, confidence=0.9, timeout=DEFAULT_TIMEOUT):
+    def click_element(image_path, confidence=0.8, timeout=DEFAULT_TIMEOUT):
         """
         点击屏幕上的元素
         :param image_path: 要点击的元素图片路径
@@ -119,7 +127,7 @@ class TestHelper:
             raise
 
     @staticmethod
-    def wait_for_element(image_path, timeout=DEFAULT_TIMEOUT, confidence=0.9):
+    def wait_for_element(image_path, timeout=DEFAULT_TIMEOUT, confidence=0.8):
         """
         等待元素出现
         :param image_path: 要等待的元素图片路径
@@ -130,7 +138,7 @@ class TestHelper:
         return TestHelper.find_element_on_screen(image_path, confidence, timeout) is not None
 
     @staticmethod
-    def double_click_element(image_path, confidence=0.9, timeout=DEFAULT_TIMEOUT):
+    def double_click_element(image_path, confidence=0.8, timeout=DEFAULT_TIMEOUT):
         """
         双击屏幕上的元素
         :param image_path: 要双击的元素图片路径
@@ -150,7 +158,7 @@ class TestHelper:
             raise
 
     @staticmethod
-    def element_exists(image_path, confidence=0.9):
+    def element_exists(image_path, confidence=0.8):
         """
         检查元素是否存在（不等待）
         :param image_path: 要查找的元素图片路径

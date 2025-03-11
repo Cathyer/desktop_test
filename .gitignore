@@ -19,6 +19,12 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+desktop_test.egg-info/
+
+# 测试生成的文件
+desktop_test/screenshots/
+desktop_test/logs/
+desktop_test/reports/
 
 # IDE
 .idea/
@@ -26,20 +32,18 @@ wheels/
 *.swp
 *.swo
 
-# OS
+# 环境
+.env
+.venv
+env/
+venv/
+ENV/
+
+# 系统文件
 .DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
 ehthumbs.db
-Thumbs.db
-
-# Project specific
-desktop_test/screenshots/*
-desktop_test/logs/*
-desktop_test/reports/*
-!desktop_test/screenshots/.gitkeep
-!desktop_test/logs/.gitkeep
-!desktop_test/reports/.gitkeep
-.pytest_cache/ 
+Thumbs.db 

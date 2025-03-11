@@ -2,13 +2,13 @@ import os
 from datetime import datetime
 
 # 项目根目录
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # 各个目录路径
-TEST_DATA_DIR = os.path.join(ROOT_DIR, 'test_data')
-SCREENSHOTS_DIR = os.path.join(ROOT_DIR, 'screenshots')
-LOGS_DIR = os.path.join(ROOT_DIR, 'logs')
-REPORTS_DIR = os.path.join(ROOT_DIR, 'reports')
+TEST_DATA_DIR = os.path.join(ROOT_DIR, 'desktop_test', 'test_data')
+SCREENSHOTS_DIR = os.path.join(ROOT_DIR, 'desktop_test', 'screenshots')
+LOGS_DIR = os.path.join(ROOT_DIR, 'desktop_test', 'logs')
+REPORTS_DIR = os.path.join(ROOT_DIR, 'desktop_test', 'reports')
 
 # 测试报告配置
 REPORT_TITLE = "桌面应用自动化测试报告"
