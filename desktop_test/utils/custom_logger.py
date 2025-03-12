@@ -170,7 +170,8 @@ class CustomLogger:
         self.info(f"开始执行测试用例: {test_name}")
         
         # 保存测试开始时的截图
-        if screenshot_path := self._save_screenshot(f"test_start_{test_name}"):
+        screenshot_path = self._save_screenshot(f"test_start_{test_name}")
+        if screenshot_path:
             self.debug(f"测试开始截图: {screenshot_path}")
     
     def log_test_end(self, test_name: str, status: str = "通过", **kwargs):
@@ -232,7 +233,8 @@ class CustomLogger:
         
         # 保存错误截图
         if save_screenshot:
-            if screenshot_path := self._save_screenshot(f"error_{test_name}"):
+            screenshot_path = self._save_screenshot(f"error_{test_name}")
+            if screenshot_path:
                 self.error(f"错误截图已保存: {screenshot_path}")
                 error_info["screenshot"] = screenshot_path
     
@@ -258,7 +260,8 @@ class CustomLogger:
         
         # 保存错误截图
         if save_screenshot:
-            if screenshot_path := self._save_screenshot(f"element_not_found_{element_name}"):
+            screenshot_path = self._save_screenshot(f"element_not_found_{element_name}")
+            if screenshot_path:
                 self.error(f"元素未找到截图已保存: {screenshot_path}")
                 log_data["screenshot"] = screenshot_path
     
@@ -321,7 +324,8 @@ class CustomLogger:
             self.debug("步骤详情:\n{}", json.dumps(details, ensure_ascii=False, indent=2))
         
         if save_screenshot:
-            if screenshot_path := self._save_screenshot(f"step_{step_name}"):
+            screenshot_path = self._save_screenshot(f"step_{step_name}")
+            if screenshot_path:
                 self.debug(f"步骤截图: {screenshot_path}")
     
     def log_assertion(
