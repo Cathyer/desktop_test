@@ -13,7 +13,6 @@ setup(
         'pytest-html>=4.1.1',
         'opencv-python>=4.8.0.74',
         'numpy>=1.24.3',
-        'loguru>=0.7.0',
     ],
     python_requires='>=3.8',
 ) 

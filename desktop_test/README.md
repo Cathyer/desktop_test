@@ -51,7 +51,6 @@ Pillow==10.2.0         # 图像处理
 pytest-html==4.1.1     # HTML报告生成
 opencv-python==4.9.0.80 # 图像处理
 numpy==1.26.3          # 数值计算
-loguru==0.7.2          # 日志管理
 ```
 
 ## 安装说明

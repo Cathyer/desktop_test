@@ -5,8 +5,11 @@ Desktop Test Framework
 """
 
 __version__ = '0.1'
+__author__ = 'Your Name'
 
-from .utils.init_project import init_project_structure
+from desktop_test.utils.init_project import init_project_structure
+
+__all__ = ['init_project_structure']
 
 # 初始化项目结构
 init_project_structure() 

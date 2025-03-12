@@ -6,5 +6,4 @@ Pillow==11.1.0
 pytest-html==4.1.1
 opencv-python==4.11.0.86
 numpy==1.26.3
-loguru==0.7.2
 python-magic==0.4.27 
