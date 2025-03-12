@@ -190,7 +190,8 @@ class CustomLogger:
         self.info(f"测试用例执行完成: {test_name} - {status}")
         
         # 保存测试结束时的截图
-        if screenshot_path := self._save_screenshot(f"test_end_{test_name}"):
+        screenshot_path = self._save_screenshot(f"test_end_{test_name}")
+        if screenshot_path:
             self.debug(f"测试结束截图: {screenshot_path}")
         
         self.clear_test_context()
